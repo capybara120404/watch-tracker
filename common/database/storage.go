@@ -19,7 +19,7 @@ func Open(connectionString string) (*Storage, error) {
 	}
 	log.Printf("PostgreSQL Database connected successfully.")
 
-	err = createPostgresDatabase(db)
+	err = createDatabase(db)
 	if err != nil {
 		return nil, fmt.Errorf("error creating PostgreSQL database: %v", err)
 	}
@@ -34,7 +34,7 @@ func (c *Storage) Close() error {
 	return nil
 }
 
-func createPostgresDatabase(db *sql.DB) error {
+func createDatabase(db *sql.DB) error {
 	createTables := `
 	CREATE TABLE IF NOT EXISTS series (
 		id SERIAL PRIMARY KEY,
