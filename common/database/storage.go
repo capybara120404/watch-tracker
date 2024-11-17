@@ -19,18 +19,37 @@ func Open(connectionString string) (*Storage, error) {
 	}
 	log.Printf("PostgreSQL Database connected successfully.")
 
-	err = createDatabase(db)
+	err = createDatabaseIfNotExist(db)
 	if err != nil {
 		return nil, fmt.Errorf("error creating PostgreSQL database: %v", err)
+	}
+
+	connectionStringWithDB := fmt.Sprintf("%s dbname=watch_tracker_db", connectionString)
+	db, err = sql.Open("postgres", connectionStringWithDB)
+	if err != nil {
+		return nil, fmt.Errorf("error reconnecting to PostgreSQL database: %v", err)
+	}
+
+	err = createDatabase(db)
+	if err != nil {
+		return nil, fmt.Errorf("error creating PostgreSQL tables: %v", err)
 	}
 
 	return &Storage{DB: db}, nil
 }
 
-func (storage *Storage) Close() error {
-	if err := storage.DB.Close(); err != nil {
-		return fmt.Errorf("error closing database: %v", err)
+func createDatabaseIfNotExist(db *sql.DB) error {
+	var dbName string
+
+	err := db.QueryRow("SELECT 1 FROM pg_database WHERE datname = 'watch_tracker_db'").Scan(&dbName)
+
+	if err != nil && err.Error() == "sql: no rows in result set" {
+		_, err := db.Exec("CREATE DATABASE watch_tracker_db")
+		if err != nil {
+			return fmt.Errorf("failed to create database: %v", err)
+		}
 	}
+
 	return nil
 }
 
@@ -43,7 +62,7 @@ func createDatabase(db *sql.DB) error {
 		imdb FLOAT,
 		start_year INT,
 		end_year INT,
-		poster TEXT,
+		poster_link TEXT,
 		country TEXT,
 		number_of_episode INT,
 		episode_duration INT
