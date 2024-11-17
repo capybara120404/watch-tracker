@@ -13,6 +13,6 @@ type Series struct {
 	EpisodeDuration uint    `json:"episode_duration"`
 }
 
-func (s *Series) CalculateTotalDuration() uint {
-	return s.NumberOfEpisode * s.EpisodeDuration
+func (series *Series) CalculateTotalDuration() uint {
+	return series.NumberOfEpisode * series.EpisodeDuration
 }

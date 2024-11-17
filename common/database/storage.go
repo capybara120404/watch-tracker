@@ -27,8 +27,8 @@ func Open(connectionString string) (*Storage, error) {
 	return &Storage{DB: db}, nil
 }
 
-func (c *Storage) Close() error {
-	if err := c.DB.Close(); err != nil {
+func (storage *Storage) Close() error {
+	if err := storage.DB.Close(); err != nil {
 		return fmt.Errorf("error closing database: %v", err)
 	}
 	return nil
