@@ -23,28 +23,24 @@ func NewSeriesRepository(storage *database.Storage) *SeriesRepository {
 }
 
 func (repository *SeriesRepository) AddSeries(series models.Series) error {
-	stmt, err := repository.storage.DB.Prepare(`
-		INSERT INTO series (title, link, imdb, start_year, end_year, poster_link, country, number_of_episodes, episode_duration)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-	`)
+	stmt, err := repository.storage.DB.Prepare(`INSERT INTO series (title, link, imdb, start_year, end_year, poster_link, country, number_of_episode, episode_duration)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`)
 	if err != nil {
-		return fmt.Errorf(prepareError, err)
+		return fmt.Errorf("failed to prepare statement: %v", err)
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(
-		series.Title,
-		series.Link,
-		series.IMDB,
-		series.StartYear,
-		series.EndYear,
-		series.PosterLink,
-		series.Country,
-		series.NumberOfEpisode,
-		series.EpisodeDuration,
-	)
+	var endYear interface{}
+	if series.EndYear != nil {
+		endYear = *series.EndYear
+	} else {
+		endYear = nil
+	}
+
+	_, err = stmt.Exec(series.Title, series.Link, series.IMDB, series.StartYear, endYear,
+		series.PosterLink, series.Country, series.NumberOfEpisode, series.EpisodeDuration)
 	if err != nil {
-		return fmt.Errorf("failed to execute SQL statement: %w", err)
+		return fmt.Errorf("failed to execute statement: %v", err)
 	}
 
 	return nil
