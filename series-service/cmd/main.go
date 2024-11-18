@@ -6,13 +6,13 @@ import (
 	"github.com/capybara120404/common/config"
 	"github.com/capybara120404/common/database"
 	"github.com/capybara120404/common/utils"
-	"github.com/capybara120404/series-service/internal/repository"
 	"github.com/capybara120404/series-service/internal/handler"
+	"github.com/capybara120404/series-service/internal/repository"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	config, err := config.NewConfig("./common/config/config.env")
+	config, err := config.NewConfig("config.env")
 	if err != nil {
 		log.Fatalf("Error loading config: %v", err)
 	}

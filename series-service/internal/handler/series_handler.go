@@ -114,7 +114,7 @@ func (handler *seriesHandler) parseID(c *gin.Context) (uint, error) {
 func (handler *seriesHandler) logAndRespond(c *gin.Context, statusCode int, message string, err error) {
 	handler.logger.Println(err)
 	c.JSON(statusCode, gin.H{
-		"error": message,
+		"error":   message,
 		"details": err.Error(),
 	})
 }
