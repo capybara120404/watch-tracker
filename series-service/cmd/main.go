@@ -3,11 +3,11 @@ package main
 import (
 	"log"
 
-	"github.com/capybara120404/watch-tracker/common/config"
-	"github.com/capybara120404/watch-tracker/common/database"
-	"github.com/capybara120404/watch-tracker/common/utils"
-	"github.com/capybara120404/watch-tracker/series-service/internal/handler"
-	"github.com/capybara120404/watch-tracker/series-service/internal/repository"
+	"github.com/capybara120404/common/config"
+	"github.com/capybara120404/common/database"
+	"github.com/capybara120404/common/utils"
+	"github.com/capybara120404/series-service/internal/repository"
+	"github.com/capybara120404/series-service/internal/handler"
 	"github.com/gin-gonic/gin"
 )
 

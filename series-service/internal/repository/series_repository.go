@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/capybara120404/watch-tracker/common/database"
-	"github.com/capybara120404/watch-tracker/common/models"
+	"github.com/capybara120404/common/database"
+	"github.com/capybara120404/common/models"
 )
 
 var (

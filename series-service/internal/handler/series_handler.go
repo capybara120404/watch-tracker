@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/capybara120404/watch-tracker/common/models"
-	"github.com/capybara120404/watch-tracker/series-service/internal/repository"
+	"github.com/capybara120404/common/models"
+	"github.com/capybara120404/series-service/internal/repository"
 	"github.com/gin-gonic/gin"
 )
 
