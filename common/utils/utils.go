@@ -8,7 +8,7 @@ import (
 )
 
 func CreateLogger(logFile, nameOfLogger string) (*log.Logger, *os.File, error) {
-	logFilePath := filepath.Join("common", "logs", logFile)
+	logFilePath := filepath.Join("internal", "logs", logFile)
 
 	err := os.MkdirAll(filepath.Dir(logFilePath), 0755)
 	if err != nil {
