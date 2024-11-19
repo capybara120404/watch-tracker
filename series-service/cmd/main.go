@@ -24,7 +24,6 @@ func main() {
 	defer file.Close()
 
 	storage, err := database.Open(config.ConnectionString)
-
 	if err != nil {
 		logger.Fatal(err)
 	}
